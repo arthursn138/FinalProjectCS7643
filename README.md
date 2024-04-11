@@ -9,3 +9,12 @@ Resources:
 * Main framework used: [Multimodality Helps Unimodality: Cross-Modal Few-Shot Learning with Multimodal Models](https://arxiv.org/abs/2301.06267) (CVPR 2023)
 * Datasets: _To be added_
 * Pre-trained models: _To be added_
+
+## Action plan from April 10 (<u>Due: April 15</u>)
+
+* Create repo and share (Arthur) - **_done_**
+* Clone and download datasets (Stefan, Ghazal) 
+* Set up environments (everybody - Arthur) 
+* Figure out what VLM they use (everybody - Ghazal) 
+* Finetune as is with current backbone on 2 datasets - start with Caltech101 and StanfordCars (everybody - Stefan) 
+* Search for other compatible VLMs (backbones) - (Stefan) 
