@@ -1,0 +1,26 @@
+# Pre-defined checkpoint dir
+## Dataset folder
+/data
+/data/
+
+## Output folders
+/features/
+/experiments/
+/results/
+/average_results/
+/imagenet_esc_results/
+
+# # Imagenet Split is too large
+# splits/split_ImageNet.json
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
