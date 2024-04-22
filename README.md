@@ -30,8 +30,9 @@ First, run `conda env create -f environment.yml`. You might need to change pytor
 Then, run `pip install -r requirements.txt` and you should be all set!
 
 
+## Minutes of meetings 
 
-## Action plan from April 22 (<u>Due: April 24</u>)
+### Action plan from April 22 (<u>Due: April 24</u>)
 * Incorporate all the changes we talked about to the write up. General structure, related work and methods (Stefan)
 * Run with more VLMs (Arthur, Ghazal)
     * Only use linear probing (easier to implement with other VLMs) 
@@ -44,7 +45,7 @@ Then, run `pip install -r requirements.txt` and you should be all set!
     * Add different linear heads
 
 
-## Action plan from April 19 (<u>Due: April 22</u>)
+### Action plan from April 19 (<u>Due: April 22</u>)
 * Everybody in the same page (everyone) - **_done_**
 * Fix issues with [eval.py](eval.py) (Arthur and Stefan) - **_done_**
 * Seeds 1, 2, 3; Shots 1, 2, 4, 8, 16 (everyone) - **_noted_**
@@ -53,7 +54,7 @@ Then, run `pip install -r requirements.txt` and you should be all set!
 * Other experiments and more anaysis? (Arthur, Ghazal) - **_thinking about_**
 
 
-## Action plan from April 10 (<u>Due: April 15</u>)
+### Action plan from April 10 (<u>Due: April 15</u>)
 
 * Create repo and share (Arthur) - **_done_**
 * Clone and download datasets (Stefan, Ghazal) - **_done_** 
