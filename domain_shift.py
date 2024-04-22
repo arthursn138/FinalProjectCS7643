@@ -31,7 +31,7 @@ from features import get_backbone_name, \
                      get_test_features_path
             
 
-torch.set_num_threads(4) # To maximize efficiency, please tune the number of threads for your machine
+torch.set_num_threads(16) # To maximize efficiency, please tune the number of threads for your machine
 
 CROSS_MODAL_BATCH_RATIO = 0.5 # Half of the batch is image, the other half is text
 EVAL_FREQ = 100 # Evaluate on val set per 100 iterations (for early stopping)

@@ -1,6 +1,6 @@
 import os, argparse
 import torch
-torch.set_num_threads(4)
+torch.set_num_threads(16)
 import numpy as np
 import csv
 

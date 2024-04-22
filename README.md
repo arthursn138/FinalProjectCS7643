@@ -31,13 +31,26 @@ Then, run `pip install -r requirements.txt` and you should be all set!
 
 
 
-## Action plan from April 19 (<u>Due: April 23</u>)
+## Action plan from April 22 (<u>Due: April 24</u>)
+* Incorporate all the changes we talked about to the write up. General structure, related work and methods (Stefan)
+* Run with more VLMs (Arthur, Ghazal)
+    * Only use linear probing (easier to implement with other VLMs) 
+    * Embrace the particularities that each model presents for finetuning
+    * Need to consider whether we should scale or not the size of the linear probe according to their number of parameters 
+* Analysis (Arthur, Ghazal) 
+    * How to report qualitative results (which metrics)? 
+* Potential other experiments: 
+    * Sweep a different range of learning rate and other hyperparams
+    * Add different linear heads
+
+
+## Action plan from April 19 (<u>Due: April 22</u>)
 * Everybody in the same page (everyone) - **_done_**
 * Fix issues with [eval.py](eval.py) (Arthur and Stefan) - **_done_**
 * Seeds 1, 2, 3; Shots 1, 2, 4, 8, 16 (everyone) - **_noted_**
-* Start the writeup (Stefan)
-* Run with more VLMs (Arthur, Ghazal)
-* Other experiments and more anaysis? (Arthur, Ghazal)
+* Start the writeup (Stefan) - **_in progress, incorporating proposed changes_**
+* Run with more VLMs (Arthur, Ghazal) - **_in progress_**
+* Other experiments and more anaysis? (Arthur, Ghazal) - **_thinking about_**
 
 
 ## Action plan from April 10 (<u>Due: April 15</u>)

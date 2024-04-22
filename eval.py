@@ -1,6 +1,6 @@
 import os, argparse
 import torch
-torch.set_num_threads(4)
+torch.set_num_threads(16)
 import numpy as np
 import csv
 from engine.config import default
@@ -14,16 +14,16 @@ EVAL_DIR = "./results/" # Default save to ./results/ directory
 
 DATASETS = [
     # "imagenet",
-    "caltech101"
+    "caltech101",
     # "dtd",
     # "eurosat",
     # "fgvc_aircraft",
     # "food101",
-    # "oxford_flowers",
+    "oxford_flowers",
     # "oxford_pets",
     # "stanford_cars",
     # "sun397",
-    # "ucf101",
+    "ucf101",
 ]
 
 SEEDS = [
