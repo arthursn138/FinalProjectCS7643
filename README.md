@@ -45,6 +45,6 @@ Then, run `pip install -r requirements.txt` and you should be all set!
 * Create repo and share (Arthur) - **_done_**
 * Clone and download datasets (Stefan, Ghazal) - **_done_** 
 * Set up environments (everybody - Arthur) - **_done_** 
-* Figure out what VLM they use (everybody - Ghazal) - **_not done in time_** 
+* Figure out what VLM they use (everybody - Ghazal) - **_done_** 
 * Finetune as is with current backbone on 2 datasets - start with Caltech101 and StanfordCars (everybody - Stefan)  - **_rerouted_**
 * Search for other compatible VLMs (backbones) - (Stefan)  - **_not done in time_**
