@@ -30,21 +30,35 @@ First, run `conda env create -f environment.yml`. You might need to change pytor
 Then, run `pip install -r requirements.txt` and you should be all set!
 
 
+## Minutes of meetings 
 
-## Action plan from April 19 (<u>Due: April 23</u>)
+### Action plan from April 22 (<u>Due: April 24</u>)
+* Incorporate all the changes we talked about to the write up. General structure, related work and methods (Stefan)
+* Run with more VLMs (Arthur, Ghazal)
+    * Only use linear probing (easier to implement with other VLMs) 
+    * Embrace the particularities that each model presents for finetuning
+    * Need to consider whether we should scale or not the size of the linear probe according to their number of parameters 
+* Analysis (Arthur, Ghazal) 
+    * How to report qualitative results (which metrics)? 
+* Potential other experiments: 
+    * Sweep a different range of learning rate and other hyperparams
+    * Add different linear heads
+
+
+### Action plan from April 19 (<u>Due: April 22</u>)
 * Everybody in the same page (everyone) - **_done_**
 * Fix issues with [eval.py](eval.py) (Arthur and Stefan) - **_done_**
 * Seeds 1, 2, 3; Shots 1, 2, 4, 8, 16 (everyone) - **_noted_**
-* Start the writeup (Stefan)
-* Run with more VLMs (Arthur, Ghazal)
-* Other experiments and more anaysis? (Arthur, Ghazal)
+* Start the writeup (Stefan) - **_in progress, incorporating proposed changes_**
+* Run with more VLMs (Arthur, Ghazal) - **_in progress_**
+* Other experiments and more anaysis? (Arthur, Ghazal) - **_thinking about_**
 
 
-## Action plan from April 10 (<u>Due: April 15</u>)
+### Action plan from April 10 (<u>Due: April 15</u>)
 
 * Create repo and share (Arthur) - **_done_**
 * Clone and download datasets (Stefan, Ghazal) - **_done_** 
 * Set up environments (everybody - Arthur) - **_done_** 
-* Figure out what VLM they use (everybody - Ghazal) - **_done_** 
+* Figure out what VLM they use (everybody - Ghazal) - **_not done in time_** 
 * Finetune as is with current backbone on 2 datasets - start with Caltech101 and StanfordCars (everybody - Stefan)  - **_rerouted_**
 * Search for other compatible VLMs (backbones) - (Stefan)  - **_not done in time_**
