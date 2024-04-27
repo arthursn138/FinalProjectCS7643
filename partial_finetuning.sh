@@ -2,8 +2,8 @@
 
 TOTAL=1
 declare -a ENCODERS=(
-                   "RN50"
-                #    "ViT-B/16"
+                #    "RN50"
+                   "ViT-B/16"
                 )
 TOTAL=$(( TOTAL * ${#ENCODERS[@]} ))
 
@@ -92,8 +92,8 @@ declare -a INITS=(
 TOTAL=$(( TOTAL * ${#INITS[@]} ))
 
 declare -a LOGITS=(
-    # "4.60517"
-    "4.0"
+    "4.60517"
+    # "4.0"
 )
 TOTAL=$(( TOTAL * ${#LOGITS[@]} ))
 
