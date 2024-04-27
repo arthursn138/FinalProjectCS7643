@@ -92,8 +92,8 @@ declare -a INITS=(
 TOTAL=$(( TOTAL * ${#INITS[@]} ))
 
 declare -a LOGITS=(
-    # "4.60517"
-    "4.0"
+    "4.60517"
+    # "4.0"
 )
 TOTAL=$(( TOTAL * ${#LOGITS[@]} ))
 
