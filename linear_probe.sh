@@ -3,7 +3,7 @@
 TOTAL=1
 declare -a ENCODERS=(
                    "RN50"
-                #    "ViT-B/16"
+                   "ViT-B/16"
                 )
 TOTAL=$(( TOTAL * ${#ENCODERS[@]} ))
 
