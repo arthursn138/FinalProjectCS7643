@@ -28,7 +28,7 @@ class UCF101(Benchmark):
         # trainval = self.read_data(cname2lab, "ucfTrainTestlist/trainlist01.txt")
         # test = self.read_data(cname2lab, "ucfTrainTestlist/testlist01.txt")
         # train, val = split_trainval(trainval)
-        # save_split(train, val, test, self.split_path, self.image_dir)
+        save_split(train, val, test, self.split_path, self.image_dir)
 
         super().__init__(train=train, val=val, test=test)
 

@@ -107,7 +107,7 @@ def extract_text_features(dataset, text_augmentation, text_encoder, lab2cname):
     with torch.no_grad():
         for label, cname in lab2cname.items():
             str_prompts = [template.format(cname.replace("_", " ")) for template in templates]
-            prompts = torch.cat([clip.tokenize(p) for p in str_prompts]).cuda()
+            prompts = torch.cat([clip.tokenize(p) for p in str_prompts]).cuda() #comment for resnet uncomment for ViT
             features, eot_indices = text_encoder.feature_extractor(prompts)
             features = features.cpu()
             eot_indices = eot_indices.cpu()

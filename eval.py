@@ -13,17 +13,17 @@ EVAL_DIR = "./results/" # Default save to ./results/ directory
 
 
 DATASETS = [
-    # "imagenet",
-    "caltech101"
-    # "dtd",
-    # "eurosat",
-    # "fgvc_aircraft",
-    # "food101",
-    # "oxford_flowers",
-    # "oxford_pets",
-    # "stanford_cars",
-    # "sun397",
-    # "ucf101",
+    #"imagenet",
+    "caltech101",
+    #"dtd",
+    #"eurosat",
+    #"fgvc_aircraft",
+    #"food101",
+    "oxford_flowers",
+    #"oxford_pets",
+    #"stanford_cars",
+    #"sun397",
+    "ucf101",
 ]
 
 SEEDS = [
@@ -266,15 +266,13 @@ def main(args):
                                 checkpoint_dir = os.path.join(save_dir, hyperparams_str)
                                 test_result_path = os.path.join(checkpoint_dir, "test_result.pth")
                                 if not os.path.exists(checkpoint_dir):
-                                    # import pdb; pdb.set_trace()
-                                    # continue
-                                    print('path doesnt exist:', checkpoint_dir)
+                                    import pdb; pdb.set_trace()
+                                    continue
                                 else:
                                     try:
                                         test_result_dict = torch.load(test_result_path)
                                     except:
-                                        # import pdb; pdb.set_trace()
-                                        continue
+                                        import pdb; pdb.set_trace()
                                     print(test_result_dict)
                                     print(f"Finished testing {hyperparams_str} {cur_count}/{experiment_count}")
                                     all_hyper_dict[hyperparams_str] = test_result_dict

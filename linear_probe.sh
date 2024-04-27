@@ -3,7 +3,7 @@
 TOTAL=1
 declare -a ENCODERS=(
                    "RN50"
-                #    "ViT-B/16"
+                   "ViT-B/16"
                 )
 TOTAL=$(( TOTAL * ${#ENCODERS[@]} ))
 
@@ -29,7 +29,7 @@ TOTAL=$(( TOTAL * ${#TEXT_AUGS[@]} ))
 declare -a IMAGE_AUGS=(
                     #   "none"
                       "flip" 
-                    #   "randomcrop"
+                      #"randomcrop"
                      )
 TOTAL=$(( TOTAL * ${#IMAGE_AUGS[@]} ))
 
@@ -41,16 +41,16 @@ TOTAL=$(( TOTAL * ${#IMAGE_VIEWS[@]} ))
 
 
 declare -a DATASETS=(
-                    #  "imagenet"
+                     #"imagenet"
                      "caltech101"
-                    #  "dtd"
-                    #  "eurosat"
-                    #  "fgvc_aircraft"
-                    #  "food101"
+                     #"dtd"
+                     #"eurosat"
+                     #"fgvc_aircraft"
+                     #"food101"
                      "oxford_flowers"
-                    #  "oxford_pets"
-                    #  "stanford_cars"
-                    #  "sun397"
+                     #"oxford_pets"
+                     #"stanford_cars"
+                     #"sun397"
                      "ucf101"
                      )
 TOTAL=$(( TOTAL * ${#DATASETS[@]} ))
@@ -74,7 +74,7 @@ declare -a ALL_SEEDS=(
 TOTAL=$(( TOTAL * ${#ALL_SEEDS[@]} ))
 
 declare -a MODALITIES=(
-    # "uni_modal"
+    "uni_modal"
     "cross_modal"
 )
 TOTAL=$(( TOTAL * ${#MODALITIES[@]} ))
