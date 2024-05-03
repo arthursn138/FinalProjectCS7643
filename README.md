@@ -1,127 +1,64 @@
-# Cross-Modal Adaptation with Multimodal Models
-This repository contains code for CVPR 2023 paper [Multimodality Helps Unimodality:
-Cross-Modal Few-Shot Learning with Multimodal Models](https://arxiv.org/abs/2301.06267). It contains the code for vision-language adaptation on 11 target image classification datasets and experiments on ImageNet-ESC benchmark for audiovisual few-shot learning.
+# Final Project for CS 7643 - Deep Learning, Spring 2024, GaTech
 
-![Motivation Figure](./assets/motivation_github.png)
+### Title: Evaluating Multimodal Generalization via Few-Shot Learning
+Authors: Arthur Nascimento, Ghazal Kaviani, Stefan Faulkner
 
-# Environment Configuration
-We recommend to install the environment through conda and pip. You should make a new environment with python>=3.9, for example:
-
-```
-conda create -n cross_modal python=3.9
-```
-
-Next, you can download pytorch from official site, for example:
-
-```
-conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
-```
-
-Next, run `pip install -r requirements.txt` in this repo to install a few more packages required by [CLIP](https://github.com/openai/CLIP). 
-
-# Dataset Installation
-Follow [DATASETS.md](DATASETS.md) to install the downstream datasets. We use the [CoOp](https://github.com/KaiyangZhou/CoOp) split of data (including the few-shot splits for seed 1-3, except for ImageNet) to ensure a fair comparison.
+Idea: Finetune different VLMs for datasets with hidden labels and apply few-shot techniques to learn the unseen labels.
 
 
-# Model Training
-![Method Figure](./assets/methodology.png)
+#### Resources:
+* Main framework used: [Multimodality Helps Unimodality: Cross-Modal Few-Shot Learning with Multimodal Models](https://arxiv.org/abs/2301.06267) (CVPR 2023)
+    * **For internal use: their README is in this repo's root as `README-SOURCE.md`. Remember to name your environment as "CS7643_project" for consistency (_i.e._,replace `conda create -n cross_modal python=3.9` by `conda create -n CS7643_project python=3.9` instead.)**
+* Datasets: We are currently using the 3 datasets listed below. **Follow the instructions in [DATASETS.md](DATASETS.md) to properly install each. It is very important that the file structure matches**. If using other datasets, make sure to poperly edit all files that explicitly call a dataset dictionary (at least all .sh, train.py), which should be at the very top part of the code.
+    * Caltech101
+    * Oxford_Flowers (Flowers102)
+    * UCF101
 
-## Path Configuration
-You should modify the paths to dataset and results at [engine/config/default.py](engine/config/default.py), e.g., you may want to modify the `DATA_DIR` to where you install all the datasets. Default is to save under the current folder.
-
-## Sample few-shot train/val split
-We already provide few-shot train/val splits for seed (1, 2, 3), and shots (1, 2, 4, 8, 16) in [indices/](indices/), as if they were generated from the original [CoOp codebase](https://github.com/KaiyangZhou/CoOp) (except for ImageNet that we sampled our own split). If you just intend to follow CoOp's protocol, you may proceed to the next step.
-
-If you want to generate more splits with different shots and seeds, please refer to [few_shot_split.py]. For example, to generate a few-shot train/val split for imagenet with seed 6, you may run the below script:
-
-```
-python few_shot_split.py --dataset imagenet --train-shot 1 --seed 6
-```
-
-## Feature Extraction
-For all the linear/partial/adapter experiments, we pre-extract the features to speed up training time. You can use [features.py](features.py) to pre-extract image and text features from a frozen CLIP model. For example, run the below script to pre-extract last layer features for imagenet-16-shot with RN50 backbone. Note that these features are not L2-normalized yet:
-
-```
-python features.py --dataset imagenet --train-shot 16 --seed 1 --clip-encoder RN50 --image-layer-idx 0 --text-augmentation hand_crafted --image-augmentation none --image-views 0
-```
-
-To reproduce the experiments in main paper (with flipped view and hand-crafted template), you may run the bash script below to extract for all 11 datasets and 3 seeds. (Tip: You can also parallelize the scripts in [features.sh](features.sh) to speed up):
-
-```
-bash features.sh
-```
-
-## Few-Shot Training
-To perform cross-modal or uni-modal training, please refer to [train.py](train.py). For example, if you want to run cross-modal adaptation for imagenet-16-shot, you can run:
-
-```
-python train.py --modality cross_modal --classifier_head linear --classifier_init zeroshot --logit 4.60517 --hyperparams linear --dataset imagenet --train-shot 16 --seed 1 --clip-encoder RN50 --image-layer-idx 0 --text-augmentation hand_crafted --image-augmentation flip --image-views 1
-```
-
-To reproduce the numbers in main paper, please run [linear_probe.sh](linear_probe.sh), [partial_finetuning.sh](partial_finetuning.sh), and [adapter.sh](adapter.sh). To speed up the experiments, you can run scripts in parallel if you have multiple GPUs. To check all the supported argparse arguments, please see this [file](engine/config/__init__.py).
-
-## Evaluation
-To perform hyperparameter search with few-shot validation set performance, we provide [eval.py](eval.py). For example, to collect results of cross-modal linear probing:
-
-```
-python eval.py --mode linear --modality cross_modal --classifier_init zeroshot --clip-encoder RN50 --text-augmentation hand_crafted --image-augmentation flip --image-views 1
-```
-
-## Average over 11 datasets
-To compute average over 11 datasets, for example for the script above, you may run the following script to generate a csv file:
-```
-python average.py --name all_RN50_linear_hand_crafted_flip_1_cross_modal_text_wiseft_False
-```
-
-## Test-time robustness to domain shift (ImageNet)
-
-To reproduce the domain shift experiments in paper please run [domain_shift.py](domain_shift.py). All the argparse arguments follow that of [train.py](train.py):
-
-```
-python domain_shift.py --modality cross_modal --classifier_head linear --classifier_init zeroshot --logit 4.60517 --hyperparams linear --dataset imagenet --train-shot 16 --clip-encoder RN50 --image-layer-idx 0 --text-augmentation hand_crafted --image-augmentation none --seed 1
-```
-
-After training, to evaluate for 3 seeds, you can use [eval_domain_shift.py](eval_domain_shift.py):
-
-```
-python eval_domain_shift.py --mode linear --modality cross_modal --classifier_init zeroshot --clip-encoder RN50 --text-augmentation hand_crafted --image-augmentation none
-```
-
-You can get Cross-Modal WiSE-FT result via enabling the `wise_ft` flag:
-
-```
-python eval_domain_shift.py --mode linear --modality cross_modal --classifier_init zeroshot --clip-encoder RN50 --text-augmentation hand_crafted --image-augmentation none --wise_ft True
-```
+* Pre-trained models: We are currently using CLIP and ViT as the only encoders. However, we are looking at other VLMs to use as backbones. For a fair comparison, we will use VLMs which were trained jointly for images and text:
+    * [CLIP](https://huggingface.co/docs/transformers/model_doc/clip)
+    * [FLAVA](https://huggingface.co/docs/transformers/main/en/model_doc/flava)
+    * [BLIP](https://huggingface.co/docs/transformers/main/en/model_doc/blip)
+    * [BridgeTower](https://huggingface.co/docs/transformers/main/en/model_doc/bridgetower)
+    * [LiT](https://huggingface.co/docs/transformers/main/en/model_doc/vision-text-dual-encoder)
 
 
-# ImageNet-ESC Experiments
-## AudioCLIP feature extraction for ESC50
-We follow the instruction offered in official [AudioCLIP codebase](https://github.com/AndreyGuzhov/AudioCLIP) to extract the feature. We notice that the AudioCLIP head does not produce good audio features with `eval()` mode, so we extract the features in `train()` mode with a batch size of 10. The [ESC-50 dataset](https://github.com/karolpiczak/ESC-50) recommended 5-fold cross validation because the audio samples can be correlated within each of the 5 folds, so we follow the practice to offer 5 train/test split of ESC-50. For each split, one fold is used as trainset (400 audio samples per fold), and the rest 4 folds are used for evaluation.
+#### Creating the environment: 
 
-To extract features (assuming you followed the dataset installation instruction) to ESC-50 folder, please run the script below. Before you run this, please modify the `PATH` variable if you install ESC-50 somewhere else.
+If you are using Ubuntu, have Conda installed and CUDA 12.0 or greater already properly installed (check with `nvidia-smi`), you can skip the above environment instructions by recreating an enviroment from [environment.yml](environment.yml).
 
-```
-cd audioclip/
-python audio_features.py
-```
-
-## Training on ImageNet-ESC
-To reproduce all the experiments in paper with 1/2/4 shot classification on both image and audios, please run:
-```
-python imagenet_esc.py
-```
+First, run `conda env create -f environment.yml`. You might need to change pytorch-cuda's version to match what your system supports ([check here](https://pytorch.org/get-started/locally/), and make sure to click in Conda under Packages), and 'prefix' to match your system's file structure.
+Then, run `pip install -r requirements.txt` and you should be all set!
 
 
-## Citation
-If you use this code in your research, please kindly cite the following papers:
+## Minutes of meetings 
 
-```
-@misc{lin2023crossmodal,
-  title={Multimodality Helps Unimodality: Cross-Modal Few-Shot Learning with Multimodal Models},
-  author={Lin, Zhiqiu and Yu, Samuel and Kuang, Zhiyi and Pathak, Deepak and Ramanan, Deva},
-  year={2023},
-  eprint={2301.06267},
-  archivePrefix={arXiv},
-  primaryClass={cs.CV}
-}
-```
+### Action plan from April 22 (<u>Due: April 24</u>)
+* Incorporate all the changes we talked about to the write up. General structure, related work and methods (Stefan)
+* Run with more VLMs (Arthur, Ghazal)
+    * Only use linear probing (easier to implement with other VLMs) 
+    * Embrace the particularities that each model presents for finetuning
+    * Need to consider whether we should scale or not the size of the linear probe according to their number of parameters 
+* Analysis (Arthur, Ghazal) 
+    * How to report qualitative results (which metrics)? 
+* Potential other experiments: 
+    * Sweep a different range of learning rate and other hyperparams
+    * Add different linear heads
+
+
+### Action plan from April 19 (<u>Due: April 22</u>)
+* Everybody in the same page (everyone) - **_done_**
+* Fix issues with [eval.py](eval.py) (Arthur and Stefan) - **_done_**
+* Seeds 1, 2, 3; Shots 1, 2, 4, 8, 16 (everyone) - **_noted_**
+* Start the writeup (Stefan) - **_in progress, incorporating proposed changes_**
+* Run with more VLMs (Arthur, Ghazal) - **_in progress_**
+* Other experiments and more anaysis? (Arthur, Ghazal) - **_thinking about_**
+
+
+### Action plan from April 10 (<u>Due: April 15</u>)
+
+* Create repo and share (Arthur) - **_done_**
+* Clone and download datasets (Stefan, Ghazal) - **_done_** 
+* Set up environments (everybody - Arthur) - **_done_** 
+* Figure out what VLM they use (everybody - Ghazal) - **_not done in time_** 
+* Finetune as is with current backbone on 2 datasets - start with Caltech101 and StanfordCars (everybody - Stefan)  - **_rerouted_**
+* Search for other compatible VLMs (backbones) - (Stefan)  - **_not done in time_**
