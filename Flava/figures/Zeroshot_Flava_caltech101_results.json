@@ -1,0 +1,6 @@
+{
+    "top1_accuracy": 16.227180527383367,
+    "topk_accuracy": 48.6815415821501,
+    "top1_accuracy_image": 25.963488843813387,
+    "topk_accuracy_image": 81.947261663286
+}
